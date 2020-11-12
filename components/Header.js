@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "../constants/colors";
+import PropTypes from "prop-types";
 
 const Header = props => {
   return (
@@ -8,6 +9,18 @@ const Header = props => {
       <Text style={StyleSheet.headerTitle}>{props.title}</Text>
     </View>
   );
+};
+
+Header.propTypes = {
+  /** allows custom styling via props that will overwrite original style */
+  style: PropTypes.object,
+  /** Title displayed on a header */
+  title: PropTypes.string
+};
+
+Header.defaultProps = {
+  style: {},
+  title: "Sample Title"
 };
 
 const styles = StyleSheet.create({

@@ -9,7 +9,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Header title="Game of Games" />
-      <Text>Guess a number</Text>
       <StartGameScreen />
       <StatusBar style="auto" />
     </View>

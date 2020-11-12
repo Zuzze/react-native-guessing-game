@@ -58,6 +58,6 @@ const spaceSandwichDarkTheme = {
 };
 
 // color theme of the app
-const SelectedTheme = waterMelonSugarTheme;
+const SelectedTheme = bohoChicTheme;
 
 export default SelectedTheme;
