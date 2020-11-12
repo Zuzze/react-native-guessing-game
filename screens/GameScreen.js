@@ -1,13 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Text, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  Text,
+  Alert
+} from "react-native";
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
 import Title from "../components/Title";
+import PrimaryButton from "../components/PrimaryButton";
 
 import Theme from "../constants/themes";
 
 import { Ionicons } from "@expo/vector-icons";
-import PrimaryButton from "../components/PrimaryButton";
 
 const generateRandomBetween = (min, max, excludedNumber) => {
   min = Math.ceil(min); // integer
@@ -20,11 +27,11 @@ const generateRandomBetween = (min, max, excludedNumber) => {
   }
 };
 
-const renderListItem = (value, numberOfRound) => {
+const renderListItem = (listLength, itemData) => {
   return (
-    <View key={value} style={styles.listItem}>
+    <View style={styles.listItem}>
       <Text>
-        Guess #{numberOfRound + 1}: {value}
+        Guess #{listLength - itemData.index}: {itemData.item}
       </Text>
     </View>
   );
@@ -35,7 +42,7 @@ const GameScreen = props => {
   const initialGuess = generateRandomBetween(1, 100, props.guessedNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [rounds, setRounds] = useState(0);
-  const [pastGuesses, setPastGuesses] = useState([initialGuess]);
+  const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
 
   // useRef values survives even component is re-rendered
   const currentLow = useRef(1);
@@ -76,7 +83,7 @@ const GameScreen = props => {
       currentGuess
     );
     setCurrentGuess(nextNumber);
-    setPastGuesses(past => [nextNumber, ...past]);
+    setPastGuesses(past => [nextNumber.toString(), ...past]);
     setRounds(currentRounds => currentRounds + 1);
   };
 
@@ -96,10 +103,16 @@ const GameScreen = props => {
           onPress={handleNextGuess.bind(this, "greater")}
         ></PrimaryButton>
       </Card>
-      <View style={styles.list}>
-        <ScrollView>
+      <View style={styles.listContainer}>
+        {/*<ScrollView contentContainerStyle={styles.list}>
           {pastGuesses.map((guess, index) => renderListItem(guess, index))}
-        </ScrollView>
+        </ScrollView>*/}
+        <FlatList
+          keyExtractor={item => item}
+          data={pastGuesses}
+          renderItem={renderListItem.bind(this, pastGuesses.length)}
+          contentContainerStyle={styles.list}
+        />
       </View>
     </View>
   );
@@ -119,11 +132,17 @@ const styles = StyleSheet.create({
     maxWidth: "80%"
   },
   list: {
+    alignItems: "center",
+    flexGrow: 1,
+    justifyContent: "flex-end"
+  },
+  listContainer: {
     width: "100%",
     flex: 1 // Note! this is required to maake scroll inside view to work on android!
   },
   listItem: {
     margin: 10,
+    width: "50%",
     flexDirection: "row",
     backgroundColor: Theme.danger,
     padding: 15,
