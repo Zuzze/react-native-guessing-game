@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
-import Colors from "../constants/colors";
+import Theme from "../constants/themes";
 
 /**
  * Presentational card component to display content
@@ -23,7 +23,7 @@ Card.defaultProps = {
 };
 
 const shadow = {
-  shadowColor: Colors.gray,
+  shadowColor: Theme.gray,
   shadowOffset: { width: 0, height: 2 },
   shadowRadius: 6, // iOS
   elevation: 10, // Android
@@ -33,9 +33,9 @@ const shadow = {
 const styles = StyleSheet.create({
   card: {
     ...shadow,
-    backgroundColor: Colors.card,
+    backgroundColor: Theme.card,
     padding: 20,
-    borderRadius: Colors.cardBorderRadius
+    borderRadius: Theme.cardBorderRadius
   }
 });
 

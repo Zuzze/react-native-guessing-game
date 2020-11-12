@@ -12,7 +12,9 @@ import {
 import Card from "../components/Card";
 import Input from "../components/Input";
 import NumberContainer from "../components/NumberContainer";
-import Colors from "../constants/colors";
+import Title from "../components/Title";
+
+import Theme from "../constants/themes";
 
 /** Layout to start game */
 const StartGameScreen = props => {
@@ -27,16 +29,13 @@ const StartGameScreen = props => {
   };
 
   const handleNumberReset = () => {
-    console.log("resetting");
     setEnteredValue("");
     setIsNumberConfirmed(false);
-    console.log(enteredValue);
   };
 
   const handleNumberConfirm = () => {
-    console.log("confirming");
     const chosenNumber = parseInt(enteredValue);
-    console.log(chosenNumber, enteredValue);
+
     if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
       Alert.alert("Invalid number!", "Number has to be between 1-99", [
         { text: "Okay", style: "destructive", onPress: handleNumberReset }
@@ -58,7 +57,7 @@ const StartGameScreen = props => {
         <Button
           title="START GAME"
           onPress={() => props.onStartGame(selectedNumber)}
-          color={Colors.primary}
+          color={Theme.primary}
         />
       </Card>
     );
@@ -72,7 +71,7 @@ const StartGameScreen = props => {
       }}
     >
       <View style={styles.screen}>
-        <Text style={styles.title}>Start Game</Text>
+        <Title>Start Game</Title>
         <Card style={styles.inputContainer}>
           <Text style={styles.title}>Select a Number</Text>
           <Input
@@ -88,14 +87,14 @@ const StartGameScreen = props => {
           <View style={styles.buttons}>
             <View style={styles.button}>
               <Button
-                color={Colors.primary}
+                color={Theme.primary}
                 title="Reset"
                 onPress={handleNumberReset}
               />
             </View>
             <View style={styles.button}>
               <Button
-                color={Colors.accent}
+                color={Theme.accent}
                 title="Confirm"
                 onPress={handleNumberConfirm}
               />
@@ -115,18 +114,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start"
   },
-  title: {
-    fontSize: 20,
-    marginVertical: 10
-  },
   button: {
     width: 100
   },
   input: {
-    backgroundColor: Colors.input,
+    backgroundColor: Theme.input,
     shadowOffset: { width: -2, height: -2 },
     shadowRadius: 6, // iOS
-    shadowColor: Colors.shadow,
+    shadowColor: Theme.shadow,
     elevation: 3, // Android
     shadowOpacity: 0.26,
     width: 300,

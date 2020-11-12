@@ -12,7 +12,12 @@ const bohoChicTheme = {
   header: "#d8b2a8",
   background: "#fff4e6",
   input: "white",
-  card: "white"
+  card: "white",
+  cardBorderRadius: 20,
+
+  titleFontFamily: "open-sans-bold",
+  fontFamily: "open-sans",
+  titleFontColor: "#a28b7e"
 };
 
 const waterMelonSugarTheme = {
@@ -27,7 +32,10 @@ const waterMelonSugarTheme = {
   background: "#e7ffea",
   input: "white",
   card: "white",
-  cardBorderRadius: 20
+  cardBorderRadius: 20,
+  titleFontFamily: "open-sans-bold",
+  fontFamily: "open-sans-regular",
+  titleFontColor: "gray"
 };
 
 const spaceSandwichTheme = {
@@ -41,7 +49,12 @@ const spaceSandwichTheme = {
   header: "#6b5bd1",
   background: "white",
   input: "white",
-  card: "white"
+  card: "white",
+  cardBorderRadius: 20,
+
+  titleFontFamily: "open-sans-bold",
+  fontFamily: "open-sans-regular",
+  titleFontColor: "gray"
 };
 
 const spaceSandwichDarkTheme = {
@@ -54,7 +67,12 @@ const spaceSandwichDarkTheme = {
   header: "#6b5bd1",
   background: "#1c2026",
   input: "#242631",
-  card: "#30343b"
+  card: "#30343b",
+  cardBorderRadius: 20,
+
+  titleFontFamily: "open-sans-bold",
+  fontFamily: "open-sans-regular",
+  titleFontColor: "gray"
 };
 
 // color theme of the app

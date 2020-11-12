@@ -5,11 +5,34 @@ import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
 import GameOverScreen from "./screens/GameOverScreen";
-import Colors from "./constants/colors";
+import Theme from "./constants/themes";
+import { AppLoading } from "expo";
+
+// Custom font
+import * as Font from "expo-font";
+
+const fetchFonts = () => {
+  Font.loadAsync({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf")
+  });
+};
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [guessRounds, setGuessRounds] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  if (!isLoaded) {
+    // font fetch is async function and to make sure it will render in initial render, we use expo's AppLoading
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setIsLoaded(true)}
+        onError={err => console.log(err)}
+      />
+    );
+  }
 
   const handleStartGame = selectedNumber => {
     setUserNumber(selectedNumber);
@@ -53,7 +76,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: Theme.background,
     alignItems: "center"
   },
   buttons: {
