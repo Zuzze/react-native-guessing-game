@@ -13,6 +13,7 @@ import Card from "../components/Card";
 import Input from "../components/Input";
 import NumberContainer from "../components/NumberContainer";
 import Title from "../components/Title";
+import PrimaryButton from "../components/PrimaryButton";
 
 import Theme from "../constants/themes";
 
@@ -86,18 +87,10 @@ const StartGameScreen = props => {
           />
           <View style={styles.buttons}>
             <View style={styles.button}>
-              <Button
-                color={Theme.primary}
-                title="Reset"
-                onPress={handleNumberReset}
-              />
+              <PrimaryButton title="Reset" onPress={handleNumberReset} />
             </View>
             <View style={styles.button}>
-              <Button
-                color={Theme.accent}
-                title="Confirm"
-                onPress={handleNumberConfirm}
-              />
+              <PrimaryButton title="Confirm" onPress={handleNumberConfirm} />
             </View>
           </View>
         </Card>

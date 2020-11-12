@@ -14,6 +14,9 @@ const bohoChicTheme = {
   input: "white",
   card: "white",
   cardBorderRadius: 20,
+  button: "#bc8f7d",
+  buttonText: "white",
+  buttonBorderRadius: 20,
 
   titleFontFamily: "open-sans-bold",
   fontFamily: "open-sans",
@@ -33,6 +36,10 @@ const waterMelonSugarTheme = {
   input: "white",
   card: "white",
   cardBorderRadius: 20,
+  button: "#bc8f7d",
+  buttonText: "white",
+  buttonBorderRadius: 20,
+
   titleFontFamily: "open-sans-bold",
   fontFamily: "open-sans-regular",
   titleFontColor: "gray"
@@ -51,6 +58,9 @@ const spaceSandwichTheme = {
   input: "white",
   card: "white",
   cardBorderRadius: 20,
+  button: "#bc8f7d",
+  buttonText: "white",
+  buttonBorderRadius: 20,
 
   titleFontFamily: "open-sans-bold",
   fontFamily: "open-sans-regular",
@@ -69,6 +79,10 @@ const spaceSandwichDarkTheme = {
   input: "#242631",
   card: "#30343b",
   cardBorderRadius: 20,
+
+  button: "#bc8f7d",
+  buttonText: "white",
+  buttonBorderRadius: 20,
 
   titleFontFamily: "open-sans-bold",
   fontFamily: "open-sans-regular",
