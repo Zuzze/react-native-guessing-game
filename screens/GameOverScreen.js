@@ -10,12 +10,13 @@ import {
 } from "react-native";
 import Title from "../components/Title";
 import Theme from "../constants/themes";
+import PrimaryButton from "../components/PrimaryButton";
 
 const GameOverScreen = props => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Title>Game over</Title>
+        <Title>{props.answer} was the right number!</Title>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
@@ -29,13 +30,9 @@ const GameOverScreen = props => {
         </View>
         <View style={styles.resultContainer}>
           <Text style={styles.resultText}>Your score {50 - props.rounds}</Text>
-          <Text>The number was {props.answer}</Text>
+
           <View style={{ margin: 10 }}>
-            <Button
-              title="Start new game"
-              color={Theme.primary}
-              onPress={props.onRestart}
-            />
+            <PrimaryButton title="Start new game" onPress={props.onRestart} />
           </View>
         </View>
       </View>
@@ -48,11 +45,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    width: "100%"
+    paddingVertical: 10
   },
   imageContainer: {
-    width: Dimensions.get("window").width * 0.7,
-    height: Dimensions.get("window").width * 0.7,
+    width: Dimensions.get("window").width * 0.5,
+    height: Dimensions.get("window").width * 0.5,
     borderRadius: 150,
     borderWidth: 1,
     borderColor: Theme.primary,
@@ -69,6 +66,7 @@ const styles = StyleSheet.create({
   },
   resultText: {
     textAlign: "center",
+    marginBottom: 20,
     fontSize: Dimensions.get("window").height < 400 ? 16 : 20
   }
 });

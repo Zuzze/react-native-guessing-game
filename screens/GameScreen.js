@@ -5,7 +5,8 @@ import {
   ScrollView,
   FlatList,
   Text,
-  Alert
+  Alert,
+  Dimensions
 } from "react-native";
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
@@ -44,6 +45,26 @@ const GameScreen = props => {
   const [rounds, setRounds] = useState(0);
   const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
 
+  // example of dynamic responsive design
+  const [deviceWidth, setDeviceWidth] = useState(
+    Dimensions.get("window").width
+  );
+  const [deviceHeight, setDeviceHeight] = useState(
+    Dimensions.get("window").height
+  );
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setDeviceHeight(Dimensions.get("window").height);
+      setDeviceWidth(Dimensions.get("window").width);
+    };
+    Dimensions.addEventListener("change", updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener("change", updateLayout);
+    };
+  });
+
   // useRef values survives even component is re-rendered
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
@@ -63,14 +84,19 @@ const GameScreen = props => {
    * @param {string} direction lower OR greater
    */
   const handleNextGuess = direction => {
-    if (
-      (direction === "lower" && currentGuess < props.guessedNumber) ||
-      (direction === "greater" && currentGuess > props.guessedNumber)
-    ) {
-      Alert.alert("Don't lie!", "You know that this is wrong...", [
-        { text: "Sorry!", style: "cancel" }
-      ]);
+    if (direction === "lower" && currentGuess < props.guessedNumber) {
+      Alert.alert(
+        "This is incorrect!",
+        `${props.guessedNumber} is greater than ${currentGuess}`,
+        [{ text: "Sorry!", style: "cancel" }]
+      );
       return;
+    } else if (direction === "greater" && currentGuess > props.guessedNumber) {
+      Alert.alert(
+        "Nope!",
+        `${props.guessedNumber} is smaller than ${currentGuess}`,
+        [{ text: "Sorry!", style: "cancel" }]
+      );
     }
     if (direction === "lower") {
       currentHigh.current = currentGuess;
@@ -86,6 +112,37 @@ const GameScreen = props => {
     setPastGuesses(past => [nextNumber.toString(), ...past]);
     setRounds(currentRounds => currentRounds + 1);
   };
+
+  // an example how to show totally different layout on smaller screens
+  if (deviceHeight < 500) {
+    <View style={styles.screen}>
+      <Title>Opponent's guess</Title>
+      <View style={styles.controls}>
+        <PrimaryButton
+          title={<Ionicons name="md-remove" size={24} color="white" />}
+          color={Theme.accent}
+          onPress={handleNextGuess.bind(this, "lower")}
+        ></PrimaryButton>
+
+        <NumberContainer>{currentGuess}</NumberContainer>
+
+        <PrimaryButton
+          title={<Ionicons name="md-add" size={24} color="white" />}
+          color={Theme.primary}
+          onPress={handleNextGuess.bind(this, "greater")}
+        ></PrimaryButton>
+      </View>
+
+      <View style={styles.listContainer}>
+        <FlatList
+          keyExtractor={item => item}
+          data={pastGuesses}
+          renderItem={renderListItem.bind(this, pastGuesses.length)}
+          contentContainerStyle={styles.list}
+        />
+      </View>
+    </View>;
+  }
 
   return (
     <View style={styles.screen}>
@@ -148,6 +205,13 @@ const styles = StyleSheet.create({
     padding: 15,
     width: 200,
     justifyContent: "space-around"
+  },
+  // for small screen only
+  controls: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "80%",
+    alignItems: "center"
   }
 });
 

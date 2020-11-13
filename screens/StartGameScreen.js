@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ScrollView,
+  KeyboardAvoidingView,
   Dimensions // API object to see how much space available
 } from "react-native";
 
@@ -23,6 +25,11 @@ const StartGameScreen = props => {
   const [enteredValue, setEnteredValue] = useState("");
   const [isNumberConfirmed, setIsNumberConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
+  const [buttonWidth, setButtonWidth] = useState(updateButtonWidth);
+
+  const updateButtonWidth = () => {
+    setButtonWidth(Dimensions.get("window").width / 5);
+  };
 
   const handleNumberChange = value => {
     // drop all non-number values
@@ -34,6 +41,18 @@ const StartGameScreen = props => {
     setEnteredValue("");
     setIsNumberConfirmed(false);
   };
+
+  // To detect screen size/orientation change after init, set event listener
+  useEffect(() => {
+    const updateLayout = () => {
+      setButtonWidth(updateButtonWidth);
+    };
+    Dimensions.addEventListener("change", updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener("change", updateLayout);
+    };
+  });
 
   const handleNumberConfirm = () => {
     const chosenNumber = parseInt(enteredValue);
@@ -67,37 +86,48 @@ const StartGameScreen = props => {
 
   // Keyboard.dismiss() closes soft keyboard when user clicks outside input
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
-    >
-      <View style={styles.screen}>
-        <Title>Start Game</Title>
-        <Card style={styles.inputContainer}>
-          <Text style={styles.title}>Select a Number</Text>
-          <Input
-            style={{ width: 100, textAlign: "center" }}
-            blurOnSubmit
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="number-pad"
-            maxLength={2}
-            value={enteredValue}
-            onChangeText={handleNumberChange}
-          />
-          <View style={styles.buttons}>
-            <View style={styles.button}>
-              <PrimaryButton title="Reset" onPress={handleNumberReset} />
-            </View>
-            <View style={styles.button}>
-              <PrimaryButton title="Confirm" onPress={handleNumberConfirm} />
-            </View>
+    <ScrollView>
+      <KeyboardAvoidingView
+        style={styles.screen}
+        behaviour="position"
+        keyboardVerticalOffset={30}
+      >
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Keyboard.dismiss();
+          }}
+        >
+          <View>
+            <Title>Start Game</Title>
+            <Card style={styles.inputContainer}>
+              <Text style={styles.title}>Select a Number</Text>
+              <Input
+                style={{ width: 100, textAlign: "center" }}
+                blurOnSubmit
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="number-pad"
+                maxLength={2}
+                value={enteredValue}
+                onChangeText={handleNumberChange}
+              />
+              <View style={styles.buttons}>
+                <View style={{ width: buttonWidth }}>
+                  <PrimaryButton title="Reset" onPress={handleNumberReset} />
+                </View>
+                <View style={{ width: buttonWidth }}>
+                  <PrimaryButton
+                    title="Confirm"
+                    onPress={handleNumberConfirm}
+                  />
+                </View>
+              </View>
+            </Card>
+            {confirmedOutput}
           </View>
-        </Card>
-        {confirmedOutput}
-      </View>
-    </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
@@ -106,10 +136,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     alignItems: "center",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    width: "100%"
   },
   button: {
-    // Responsive look for any device sizes
+    // Responsive look for any device sizes, this calculaated only on init
+    // to change dynamically, set up hook
     width: Dimensions.get("window").width / 3
   },
   input: {

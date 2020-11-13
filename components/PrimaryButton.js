@@ -15,7 +15,7 @@ const PrimaryButton = props => {
 
 PrimaryButton.propTypes = {
   onPress: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 
 PrimaryButton.defaultProps = {
@@ -30,11 +30,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 10,
     marginHorizontal: 5,
-    padding: 5,
-    minWidth: 80
+    paddingVertical: 5,
+    minWidth: 100,
+
+    paddingHorizontal: 20
   },
   buttonText: {
     textAlign: "center",
+
+    fontSize: 18,
     color: Theme.buttonText
   }
 });
