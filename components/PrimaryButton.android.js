@@ -35,11 +35,7 @@ const PrimaryButton = props => {
       <ButtonComponent
         onPress={props.onPress}
         activeOpacity={0.6}
-        background={TouchableNativeFeedback.Ripple(
-          Theme.buttonRipple,
-          true,
-          40
-        )}
+        background={TouchableNativeFeedback.Ripple(Theme.button, true, 40)}
       >
         <View style={styles.button}>
           <Text style={styles.buttonText}>{props.title}</Text>
