@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end"
   },
   listContainer: {
-    width: "100%",
+    width: Dimensions.get("window").width > 350 ? "60%" : "80%",
     flex: 1 // Note! this is required to maake scroll inside view to work on android!
   },
   listItem: {

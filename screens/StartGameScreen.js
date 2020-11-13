@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert
+  Alert,
+  Dimensions // API object to see how much space available
 } from "react-native";
 
 import Card from "../components/Card";
@@ -108,7 +109,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start"
   },
   button: {
-    width: 100
+    // Responsive look for any device sizes
+    width: Dimensions.get("window").width / 3
   },
   input: {
     backgroundColor: Theme.input,
@@ -123,17 +125,21 @@ const styles = StyleSheet.create({
     margin: 10
   },
   inputContainer: {
-    width: 300,
+    width: "80%",
+    maxWidth: "95%",
+    minWidth: 300,
     marginBottom: 20,
-    maxWidth: "80%",
     alignItems: "center"
   },
   buttons: {
-    margin: 10,
     marginBottom: 30,
+    width: 400,
+    maxWidth: "90%",
     flexDirection: "row",
     paddingHorizontal: 5,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    // kind of like media queries in CSS
+    marginTop: Dimensions.get("window").height > 600 ? 20 : 5
   },
   summaryContainer: {
     marginTop: 20,
