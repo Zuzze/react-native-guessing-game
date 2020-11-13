@@ -10,6 +10,7 @@ const bohoChicTheme = {
   shadow: "gray",
 
   header: "#d8b2a8",
+  headerText: "white",
   background: "#fff4e6",
   input: "white",
   card: "white",
@@ -17,6 +18,7 @@ const bohoChicTheme = {
   button: "#bc8f7d",
   buttonText: "white",
   buttonBorderRadius: 20,
+  buttonRipple: "lightgray",
 
   titleFontFamily: "open-sans-bold",
   fontFamily: "open-sans",
@@ -32,6 +34,7 @@ const waterMelonSugarTheme = {
   shadow: "gray",
 
   header: "#ff7676",
+  headerText: "white",
   background: "#e7ffea",
   input: "white",
   card: "white",
@@ -39,6 +42,7 @@ const waterMelonSugarTheme = {
   button: "#bc8f7d",
   buttonText: "white",
   buttonBorderRadius: 20,
+  buttonRipple: "lightgray",
 
   titleFontFamily: "open-sans-bold",
   fontFamily: "open-sans-regular",
@@ -54,6 +58,7 @@ const spaceSandwichTheme = {
   shadow: "gray",
 
   header: "#6b5bd1",
+  headerText: "white",
   background: "white",
   input: "white",
   card: "white",
@@ -61,6 +66,7 @@ const spaceSandwichTheme = {
   button: "#bc8f7d",
   buttonText: "white",
   buttonBorderRadius: 20,
+  buttonRipple: "lightgray",
 
   titleFontFamily: "open-sans-bold",
   fontFamily: "open-sans-regular",
@@ -74,7 +80,9 @@ const spaceSandwichDarkTheme = {
   danger: "#b8609a",
   success: "#9ccfea",
   shadow: "gray",
+
   header: "#6b5bd1",
+  headerText: "white",
   background: "#1c2026",
   input: "#242631",
   card: "#30343b",

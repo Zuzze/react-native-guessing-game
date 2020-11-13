@@ -24,9 +24,9 @@ Card.defaultProps = {
 
 const shadow = {
   shadowColor: Theme.gray,
-  shadowOffset: { width: 0, height: 2 },
+  shadowOffset: { width: 0, height: 2 }, // iOS
   shadowRadius: 6, // iOS
-  elevation: 10, // Android
+  elevation: 6, // Android
   shadowOpacity: 0.26
 };
 

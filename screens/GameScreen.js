@@ -12,6 +12,7 @@ import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
 import Title from "../components/Title";
 import PrimaryButton from "../components/PrimaryButton";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 import Theme from "../constants/themes";
 
@@ -39,6 +40,9 @@ const renderListItem = (listLength, itemData) => {
 };
 
 const GameScreen = props => {
+  //  example how to lock screen on portrait/landscape on a specific screen
+  ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+
   // call first number that is never the final number
   const initialGuess = generateRandomBetween(1, 100, props.guessedNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
