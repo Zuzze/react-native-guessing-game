@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
@@ -67,12 +67,14 @@ export default function App() {
     );
   }
 
+  // Tip: In top most components use SafeAreaView instead of View to avoid native elements like phone native nav etc overlapping with the view
+  // Some navigation libraries use this automatically
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header title="Game of Games" />
       {content}
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
